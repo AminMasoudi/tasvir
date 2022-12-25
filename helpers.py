@@ -13,6 +13,7 @@ def apology(message, code=400):
         # return s
     return render_template("apology.html",top = code, message=message), code
 
+#TODO : Login_required
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
