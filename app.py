@@ -2,7 +2,7 @@
 from flask import Flask ,request ,redirect ,render_template ,session
 from flask_session import Session
 from werkzeug.security import check_password_hash
-from helpers import apology 
+from helpers import apology, login_required
 import sqlite3 as sql
 
 
@@ -35,8 +35,20 @@ def after_request(response):
 #TODO : index(SHOW FILES)
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return apology("TODO")
 
-@app.route("upload")
+#TODO : UPLOAD
+@app.route("/upload")
 def upload():
-    return render_template()
+    return apology("TODO")
+
+#TODO : login
+@app.route("/login",methods=["GET","POST"])
+def login():
+    return apology("TODO")
+
+#TODO : admin page
+@app.route("/admin")
+@login_required
+def admin():
+    return apology("TODO")
