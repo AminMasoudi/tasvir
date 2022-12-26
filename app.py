@@ -33,18 +33,18 @@ def after_request(response):
 
 #TODO : routs
 
-#TODO : index(SHOW FILES)
+#DONE : index(SHOW FILES)
 @app.route("/")
 def index():
     return render_template("index.html",maxNumber = maxNumber())
 
-#TODO : UPLOAD
+#DONE : UPLOAD
 @app.route("/upload",methods = ["GET","POST"])
 def upload():
     if request.method=="POST":
         file = request.files["file"]
         file.save("static/load/" + secure_filename(file.filename))
-        return redirect("/")
+        return redirect("/update")
     return render_template("upload.html")
 
 #TODO : login
