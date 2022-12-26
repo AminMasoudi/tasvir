@@ -1,0 +1,19 @@
+TODO
+
+index:
+	app DONE
+		DEBUG needed
+	templates False
+
+
+
+upload:
+	app almost done
+		need to check for exceptoin & redirect with secsess message
+		file name??
+	templates not done
+
+logout
+DB
+login
+adminpage
