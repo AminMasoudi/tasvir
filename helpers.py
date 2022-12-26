@@ -1,6 +1,6 @@
 from flask import render_template, redirect, session
 from functools import wraps
-
+import os
 
 #TODO : apology
 
@@ -21,3 +21,7 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+def maxNumber():
+    files = os.listdir("static/load")
+    return ["load/"+ i for i in files]
