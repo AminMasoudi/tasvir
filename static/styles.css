@@ -1,0 +1,26 @@
+.blue
+{
+    color: aqua;
+}
+.red
+{
+    color: tomato;
+}
+.yellow{
+    color: yellow;
+}
+.green
+{
+    color: green;
+}
+.upload_form
+{
+    border-radius: 6px;
+    padding: 16px;
+    font-size: 14px;
+    background-color: #f6f8fa;
+    border: 1px solid #d8ded4;
+}
+.upload_form{
+    margin-top: 2rem;
+}
