@@ -46,12 +46,11 @@ def upload():
             file.save("static/load/" + secure_filename(file.filename))
             #TODO : redirect with seccess mesage
             return redirect("/upload")
-            
+
 
         else:
             #TODO : send erorr
             return apology("no file uploaded", )
-        return redirect("/upload")
     return render_template("upload.html")
 
 #DONE : login
