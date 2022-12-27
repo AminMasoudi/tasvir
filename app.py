@@ -42,8 +42,15 @@ def index():
 @app.route("/upload",methods = ["GET","POST"])
 def upload():
     if request.method=="POST":
-        file = request.files["file"]
-        file.save("static/load/" + secure_filename(file.filename))
+        if not (file:=request.files["file"]):
+            file.save("static/load/" + secure_filename(file.filename))
+            #TODO : redirect with seccess mesage
+            return redirect("/upload")
+            
+
+        else:
+            #TODO : send erorr
+            return apology("no file uploaded", )
         return redirect("/upload")
     return render_template("upload.html")
 
