@@ -1,5 +1,15 @@
-    <form action = "/upload" method = "POST" 
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file" />
-         <input type = "submit"/>
-    </form>   
+
+{% extends "Layout.html" %}
+
+{% block title %}
+    Upload
+{% endblock %}
+
+{% block main %}
+<form action = "/upload" method = "POST" 
+     
+     enctype = "multipart/form-data">
+     <input type = "file" name = "file" />     
+     <input type = "submit"/>
+</form>   
+{% endblock %}

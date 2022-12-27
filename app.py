@@ -44,13 +44,37 @@ def upload():
     if request.method=="POST":
         file = request.files["file"]
         file.save("static/load/" + secure_filename(file.filename))
-        return redirect("/update")
+        return redirect("/upload")
     return render_template("upload.html")
 
-#TODO : login
+#DONE : login
 @app.route("/login",methods = ["GET","POST"])
 def login():
-    return apology("TODO")
+    """Log user in"""
+
+    if request.method == "POST":
+
+        #Forget any Admin_id
+        session.clear()
+
+        #Ensure username was provided
+        if not (username:=request.form.get("username")):
+            return apology("must provid username",403)
+        elif not (passIntry:=request.form.get("password")):
+            return apology("must provid password",403)
+        
+        #ask db for username info
+        row = db.execute("SELECT * FROM admins WHERE username=? ;", username)
+        
+        #check if username not exiced or password is not correct 
+        if len(row) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+            return apology("username or password is wrong")
+
+        #remember whitch user has loged in
+        session["user_id"] = row[0]["id"]
+        return redirect("/admin")
+    else:
+        return render_template("login.html")
 
 #TODO : admin page
 @app.route("/admin")
@@ -58,4 +82,11 @@ def login():
 def admin():
     return apology("TODO")
 
-#TODO : logout
+#DONE : logout
+@app.route("/logout")
+def logout():
+    """Log user out"""
+    # Forget any user_id
+    session.clear()
+    # Redirect user to login form
+    return redirect("/")
