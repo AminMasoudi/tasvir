@@ -6,10 +6,40 @@
 {% endblock %}
 
 {% block main %}
-<form action = "/upload" method = "POST" 
-     
-     enctype = "multipart/form-data">
-     <input type = "file" name = "file" />     
-     <input type = "submit"/>
-</form>   
+
+<div style="width: 350px; margin:0 auto ;" class="px-3">
+    <div class="upload-Form-Header">
+        <h2>Upload</h2>
+    </div>
+    <div class="upload_form" style="text-align:left ; height:40% ;">
+        <form action="/upload" method="post" enctype = "multipart/form-data">
+            <div style="margin-bottom: 1rem;">
+                <div>
+                    <label for="name">Name</label>
+                </div>
+                <input type="text" name="name" placeholder="Optional" style="border: 1px solid #d3d9ce; border-radius: 3px;" >
+                
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <div style="margin-block-start:5px ;color: #151515; font-size: .688rem;">
+                    discribe
+                </div>
+                <textarea name="discribe" placeholder="Optional" style="border:1px solid #d3d9ce ;border-radius:3px ; margin-top: 3px;"></textarea>
+            </div>
+            <div style="margin-bottom: 1rem; color: #707070; font-size: .688rem;">
+                helps #TODO
+            </div>
+            <div style="display:inline-flex ; margin-left: 3px; margin-bottom: 1rem;">
+                <input id="acceptRools" type="checkbox" style="margin-inline-end: 5px; border-radius: 3px; border-color: #454545;">
+                <div>
+                    <label for="acceptRools">I accept #TODO </label>
+                </div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="file" name="file" >
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: .5rem; margin-bottom: .5rem;">send</button>
+        </form>
+        
+</div>
 {% endblock %}
