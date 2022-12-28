@@ -5,5 +5,17 @@
 {% endblock %}
 
 {% block main %}
-Wellcome 
+{% for address in addresses%}
+<div style="display: inline-flex;">
+    <div >
+        <img src="{{address}}" class="image">
+    </div>
+
+    <div class="image-notes">
+
+    </div>
+</div>
+
+<hr>
+{% endfor %}
 {% endblock %}

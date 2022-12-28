@@ -22,6 +22,6 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-def maxNumber():
+def addresses():
     files = os.listdir("static/load")
-    return ["load/"+ i for i in files]
+    return ["static/load/"+ i for i in files]

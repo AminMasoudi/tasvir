@@ -3,7 +3,7 @@ from flask import Flask ,request ,redirect ,render_template ,session
 from flask_session import Session
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
-from helpers import apology, login_required, maxNumber
+from helpers import apology, login_required, addresses
 import sqlite3 as sql
 
 
@@ -36,13 +36,13 @@ def after_request(response):
 #DONE : index(SHOW FILES)
 @app.route("/")
 def index():
-    return render_template("index.html",maxNumber = maxNumber())
+    return render_template("index.html",addresses = addresses())
 
 #DONE : UPLOAD
 @app.route("/upload",methods = ["GET","POST"])
 def upload():
     if request.method=="POST":
-        if not (file:=request.files["file"]):
+        if (file:=request.files["file"]):
             file.save("static/load/" + secure_filename(file.filename))
             #TODO : redirect with seccess mesage
             return redirect("/upload")

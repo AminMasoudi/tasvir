@@ -24,3 +24,8 @@
 .upload_form{
     margin-top: 2rem;
 }
+.image
+{
+    width: 50%;
+    float: left;
+}
