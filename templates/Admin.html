@@ -1,0 +1,33 @@
+{% extends "Layout.html" %}
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block main %}
+{% for img in WaitingList %}
+
+<div style="display: inline-flex;">
+    <div>
+        <img src="{{img[3]}}" alt="">
+    </div>
+    <div>
+        <div>
+            <h3>discribe</h3>
+            {%for p in img[2]%}
+                <p>{{p}}</p>
+            {%endfor%}
+        </div>
+        <hr>
+        <div>
+            <h3>photograper</h3>
+            {{img[1]}}
+        </div>
+        <form action="/admin" method="post">  
+            <input type="submit" value="Y">
+            <button class="btn btn-primary" name="AdminButton" id="{{img[0]}}" type="submit" value="Y" >Y</button>
+            <button class="btn btn-primary" name="AdminButton" id="{{img[0]}}" type="submit" value="N" >N</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
