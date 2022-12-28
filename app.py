@@ -3,7 +3,7 @@ from flask import Flask ,request ,redirect ,render_template ,session
 from flask_session import Session
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
-from helpers import apology, login_required, addresses
+from helpers import apology, login_required, addresses, save, upgrade, load_waited_img
 import sqlite3 as sql
 
 
@@ -42,8 +42,10 @@ def index():
 @app.route("/upload",methods = ["GET","POST"])
 def upload():
     if request.method=="POST":
+
         if (file:=request.files["file"]):
-            file.save("static/load/" + secure_filename(file.filename))
+            if save(file)== 1:
+                return apology("file did not saved")
             #TODO : redirect with seccess mesage
             return redirect("/upload")
 
@@ -70,24 +72,35 @@ def login():
             return apology("must provid password",403)
         
         #ask db for username info
-        row = db.execute("SELECT * FROM admins WHERE username=? ;", username)
+        row = db.execute("SELECT * FROM admins WHERE username=? ;", (username,)).fetchall()
         
         #check if username not exiced or password is not correct 
-        if len(row) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+        if len(row) != 1 or not check_password_hash(row[0]["hash"], request.form.get("password")):
             return apology("username or password is wrong")
 
         #remember whitch user has loged in
         session["user_id"] = row[0]["id"]
         return redirect("/admin")
     else:
-        return render_template("login.html")
+        return render_template("AdminLogin.html")
 
 #TODO : admin page
-@app.route("/admin")
+@app.route("/admin",methods=["GET","POST"])
 @login_required
 def admin():
-    return apology("TODO")
+    if request.method=="POST":
+        if request.form["AdminButton"] == "Y":
+            #TODO : move to upload db
+            upgrade(request.form.get(id))
+            return apology("TODO")
+        else:
+            #TODO : delete img
+            return apology("TODO")
 
+        return redirect("/admin")
+
+    WaitingList = load_waited_img()
+    return render_template("Admin.html",WaitingList=WaitingList)
 #DONE : logout
 @app.route("/logout")
 def logout():
