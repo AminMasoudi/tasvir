@@ -6,11 +6,16 @@
 {% block main %}
 {% for img in WaitingList %}
 
-<div style="display: inline-flex;">
-    <div>
-        <img src="{{img[3]}}" alt="">
+<div class="img_main_block">
+    <div class="img_blk">
+        <img src="{{img[3]}}" alt="{{img[2]}}" class="image">
     </div>
-    <div>
+    <div style="text-align: left;padding-top: 1rem;">
+        <div>
+            <h3>photograper</h3>
+            {{img[1]}}
+        </div>
+        <hr>
         <div>
             <h3>discribe</h3>
             {%for p in img[2]%}
@@ -18,16 +23,13 @@
             {%endfor%}
         </div>
         <hr>
-        <div>
-            <h3>photograper</h3>
-            {{img[1]}}
-        </div>
         <form action="/admin" method="post">  
-            <input type="submit" value="Y">
-            <button class="btn btn-primary" name="AdminButton" id="{{img[0]}}" type="submit" value="Y" >Y</button>
+            <button style="margin-right:1rem ;" class="btn btn-primary" name="AdminButton" id="{{img[0]}}" type="submit" value="Y" >Y</button>
             <button class="btn btn-primary" name="AdminButton" id="{{img[0]}}" type="submit" value="N" >N</button>
+            <input value = "{{img[0]}}" type="hidden" name="my_id">
         </form>
     </div>
 </div>
+<hr>
 {% endfor %}
 {% endblock %}

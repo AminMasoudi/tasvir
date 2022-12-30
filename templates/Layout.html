@@ -24,6 +24,15 @@
                 </a>
             </div>
         </nav>
+        <header>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-primary mb-0 text-center" role="alert">{{message}}</div>                    
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </header>
         <main class="container py-5 text-center">
             {% block main %}{% endblock %}
         </main>

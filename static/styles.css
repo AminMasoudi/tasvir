@@ -26,6 +26,13 @@
 }
 .image
 {
-    width: 50%;
+    width: 95%;
     float: left;
+}
+.img_main_block{
+    display: inline-flex;
+    width:100% ;
+}
+.img_blk{
+    width: 80%;
 }
