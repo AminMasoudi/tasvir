@@ -23,6 +23,9 @@
                     <span class="blue">L</span> 
                 </a>
             </div>
+            <div><a href="/login" style="margin-right: 1rem;">Login</a></div>
+
+            <div><a href="/upload" style="margin-right: 3rem;">Upload</a></div>
         </nav>
         <header>
             {% with messages = get_flashed_messages() %}
@@ -36,5 +39,17 @@
         <main class="container py-5 text-center">
             {% block main %}{% endblock %}
         </main>
+        <footer>
+            <div style="background-color: rgb(75, 75, 75);text-align: center;">
+                <ul >
+                    <li style="margin-bottom:.75rem ;"><a href="/" style="color: aliceblue;">Picturs</a></li>
+                    <li style="margin-bottom:.75rem ;"><a href="/upload" style="color: aliceblue;">Upload your own</a></li>
+                    <li style="margin-bottom:.75rem ;"><a href="/login" style="color: aliceblue;">Admin Login</a></li>
+                    <li style="margin-bottom:.75rem ;"><a href="/rools" style="color: aliceblue; ">Rools</a></li>
+                </ul>
+
+            </div>
+        </footer>
     </body>
+    
 </html>

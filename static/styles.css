@@ -36,3 +36,16 @@
 .img_blk{
     width: 80%;
 }
+a{
+    text-decoration: none;
+}
+html{
+    background-color: rgba(75, 75, 75, 75);
+}
+main{
+    min-height: 53rem;
+}
+div.container-fluid{
+    width: auto;
+    margin-left: 1rem;
+}
