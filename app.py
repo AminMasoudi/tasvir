@@ -1,24 +1,24 @@
 #TODO : imports
-from flask import Flask ,request ,redirect ,render_template ,session
+from flask import Flask ,request ,redirect ,render_template ,session, flash, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
-from helpers import apology, login_required, addresses, save, upgrade, load_waited_img
+from helpers import apology, login_required, addresses, save, upgrade, load_waited_img, delete
 import sqlite3 as sql
 
 
-#TODO : app conf
+""" app conf """
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "upload"
 #TODO : auto reload
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-#TODO : db
+""" db connect """
 con = sql.connect("Final.db",check_same_thread=False)
 con.row_factory = sql.Row
 db = con.cursor()
 
-#TODO : Session conf
+""" Session conf """
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
@@ -31,14 +31,14 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-#TODO : routs
+""" routs """
 
-#DONE : index(SHOW FILES)
+"""index(SHOW Images)"""
 @app.route("/")
 def index():
     return render_template("index.html",addresses = addresses())
 
-#DONE : UPLOAD
+""" UPLOAD"""
 @app.route("/upload",methods = ["GET","POST"])
 def upload():
     if request.method=="POST":
@@ -47,7 +47,8 @@ def upload():
             if save(file)== 1:
                 return apology("file did not saved")
             #TODO : redirect with seccess mesage
-            return redirect("/upload")
+            flash('Uploaded!!')
+            return redirect(url_for("upload"))
 
 
         else:
@@ -55,7 +56,7 @@ def upload():
             return apology("no file uploaded", )
     return render_template("upload.html")
 
-#DONE : login
+""" login """
 @app.route("/login",methods = ["GET","POST"])
 def login():
     """Log user in"""
@@ -90,15 +91,12 @@ def login():
 def admin():
     if request.method=="POST":
         if request.form["AdminButton"] == "Y":
-            #TODO : move to upload db
-            upgrade(request.form.get(id))
-            return apology("TODO")
+           return upgrade(request.form.get("my_id"))
+
         else:
             #TODO : delete img
-            return apology("TODO")
-
-        return redirect("/admin")
-
+            return delete(request.form.get("my_id"))
+            
     WaitingList = load_waited_img()
     return render_template("Admin.html",WaitingList=WaitingList)
 #DONE : logout
@@ -109,3 +107,7 @@ def logout():
     session.clear()
     # Redirect user to login form
     return redirect("/")
+
+@app.route("/rools")
+def rools():
+    return render_template("rools.html")
