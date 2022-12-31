@@ -44,7 +44,9 @@ def upload():
     if request.method=="POST":
 
         if (file:=request.files["file"]):
-            if save(file)== 1:
+            discribe= request.form.get("discribe")
+            name = request.form.get("name")       
+            if save(file,name=name,discribe=discribe)== 1:
                 return apology("file did not saved")
             #TODO : redirect with seccess mesage
             flash('Uploaded!!')

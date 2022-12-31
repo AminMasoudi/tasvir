@@ -28,12 +28,16 @@ def addresses():
     return address
 
 
-def save(file, name="anonimus", discire="no discription"):
+def save(file, name, discribe):
     try:
+        if name == "":
+            name = "Anonymous!!"
+        if discribe=="":
+            discribe="No discription!!"
         no = db.execute("SELECT COUNT(*) FROM UPLOAD;").fetchall()[0][0]
         addr = "static/img/" + secure_filename(file.filename)
         file.save(addr)
-        db.execute("INSERT INTO upload (no, name, discribe, addr) VALUES(? ,?, ?, ?);",(no ,name,discire,addr))
+        db.execute("INSERT INTO upload (no, name, discribe, addr) VALUES(? ,?, ?, ?);",(no ,name,discribe,addr))
         con.commit()
         return 0
     except:
@@ -74,4 +78,4 @@ def delete(id:str):
         con.commit()
         return redirect("/admin")
     except:
-        return apology("couldn't delete img from db our system")
+        return apology("couldn't delete img from db or system")
