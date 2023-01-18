@@ -7,18 +7,18 @@ from helpers import apology, login_required, addresses, save, upgrade, load_wait
 import sqlite3 as sql
 
 
-""" app conf """
+# app conf
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "upload"
 #TODO : auto reload
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-""" db connect """
+#db connct
 con = sql.connect("Final.db",check_same_thread=False)
 con.row_factory = sql.Row
 db = con.cursor()
 
-""" Session conf """
+#Session conf 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
@@ -31,16 +31,21 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-""" routs """
 
-"""index(SHOW Images)"""
+#routs
 @app.route("/")
 def index():
+    """index (SHOW Images)\n
+    `return render_template(index.html, addresses = addresses()`)"""
     return render_template("index.html",addresses = addresses())
 
-""" UPLOAD"""
 @app.route("/upload",methods = ["GET","POST"])
 def upload():
+    """ UPLOAD images
+    \nPOST :
+    \n\tsave the image
+    \nGET :
+    \n\t `return render_template("upload.html")`  """
     if request.method=="POST":
 
         if (file:=request.files["file"]):
@@ -58,10 +63,9 @@ def upload():
             return apology("no file uploaded", )
     return render_template("upload.html")
 
-""" login """
 @app.route("/login",methods = ["GET","POST"])
 def login():
-    """Log user in"""
+    """Login admins\n\tusername : admin\n\tpassword : admin"""
 
     if request.method == "POST":
 
@@ -91,6 +95,12 @@ def login():
 @app.route("/admin",methods=["GET","POST"])
 @login_required
 def admin():
+    """admin can confirm pictures or delete them
+    \nby click on Y or N
+    \nPOST :
+    \n\tcheck admin's button and `return upgrade() if Y else delete()`
+    \nGET :
+    \n\tshow the waiteing_list by `return render_template("Admin.html",WaitingList=WaitingList)`  """
     if request.method=="POST":
         if request.form["AdminButton"] == "Y":
            return upgrade(request.form.get("my_id"))
@@ -104,7 +114,7 @@ def admin():
 #DONE : logout
 @app.route("/logout")
 def logout():
-    """Log user out"""
+    """Log admin out by clearing sessions and  `redirect("/")`"""
     # Forget any user_id
     session.clear()
     # Redirect user to login form
@@ -112,4 +122,6 @@ def logout():
 
 @app.route("/rools")
 def rools():
+    """shows the rolls & privecy pollocy by 
+        \n\t `return render_template("rools.html")`"""
     return render_template("rools.html")
